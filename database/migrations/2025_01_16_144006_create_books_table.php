@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('publish_date');
             $table->integer('stock');
             $table->timestamps();
-            $table->softDeletesTz('deleted_at', 0);
+            $table->softDeletesTz();
         });
     }
 
