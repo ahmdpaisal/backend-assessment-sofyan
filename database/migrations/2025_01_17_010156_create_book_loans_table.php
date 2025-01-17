@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('book_loans', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone_number');
-            $table->text('address');
-            $table->timestamps();
+            $table->foreignUuid('book_id')->constrained('books', 'id');
+            $table->foreignUuid('member_id')->constrained('members', 'id');
+            $table->date('loan_date');
+            $table->date('estimated_return');
+            $table->string('status');
+            $table->integer('forfeit')->default(0);
             $table->foreignId('created_by')->nullable()->constrained('users', 'id');
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'id');
+            $table->timestamps();
             $table->softDeletesTz();
-            $table->foreignId('deleted_by')->nullable()->constrained('users', 'id');
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('book_loans');
     }
 };
