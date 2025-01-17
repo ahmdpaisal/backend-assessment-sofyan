@@ -27,7 +27,6 @@ Route::middleware('auth:sanctum')->group(function () {
     //Logout Route
     Route::controller(AuthController::class)->group(function () {
         Route::get('current-user', 'currentUser');
-        Route::post('logout', 'logout');
     });
 
     //Book Routes
