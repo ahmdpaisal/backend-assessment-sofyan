@@ -2,13 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Resources\BookResource;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Validation\ValidationException;
 
-class BookStoreRequest extends FormRequest
+class MemberStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +24,10 @@ class BookStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|unique:books,title',
-            'publisher' => 'required|string',
-            'publish_date' => 'required|date',
-            'stock' => 'numeric|min:1',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:members,email',
+            'phone_number' => 'required|numeric|min_digits:10|unique:members,phone_number',
+            'address' => 'required',            
         ];
     }
 

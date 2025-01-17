@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,11 +16,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('books', [BookController::class, 'index']);
-Route::post('books/create', [BookController::class, 'store']);
-Route::get('books/{id}', [BookController::class, 'show']);
-Route::put('books/{id}/update', [BookController::class, 'update']);
-Route::delete('books/{id}/delete', [BookController::class, 'destroy']);
+Route::controller(BookController::class)->group(function () {
+    Route::get('/books', 'index');
+    Route::post('/books/create', 'store');
+    Route::get('/books/{id}', 'show');
+    Route::put('/books/{id}/update', 'update');
+    Route::delete('/books/{id}/delete', 'destroy');
+});
+
+Route::controller(MemberController::class)->group(function () {
+    Route::get('/anggota', 'index');
+    Route::post('/anggota/create', 'store');
+    Route::get('/anggota/{id}', 'show');
+    Route::put('/anggota/{id}/update', 'update');
+    Route::delete('/anggota/{id}/delete', 'destroy');
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

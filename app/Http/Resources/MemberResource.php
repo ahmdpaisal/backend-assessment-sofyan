@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BookResource extends JsonResource
+class MemberResource extends JsonResource
 {
     //define property
     public $status;
@@ -18,7 +18,7 @@ class BookResource extends JsonResource
         $this->status  = $status;
         $this->message = $message;
     }
-    
+
     /**
      * Transform the resource into an array.
      *

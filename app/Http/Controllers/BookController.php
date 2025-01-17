@@ -15,7 +15,8 @@ class BookController extends Controller
     public function index() {
         try {
             //get books sort by title
-            $books = Book::orderBy('title', 'ASC')->paginate(10);
+            $books = Book::orderBy('title', 'ASC')
+                ->paginate(10);
 
             //return with bookresource
             return (new BookResource(true, 'Fetch books successfully', $books))
