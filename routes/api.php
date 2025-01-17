@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\MemberController;
 use Illuminate\Http\Request;
@@ -16,22 +17,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(BookController::class)->group(function () {
-    Route::get('/books', 'index');
-    Route::post('/books/create', 'store');
-    Route::get('/books/{id}', 'show');
-    Route::put('/books/{id}/update', 'update');
-    Route::delete('/books/{id}/delete', 'destroy');
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
 });
 
-Route::controller(MemberController::class)->group(function () {
-    Route::get('/anggota', 'index');
-    Route::post('/anggota/create', 'store');
-    Route::get('/anggota/{id}', 'show');
-    Route::put('/anggota/{id}/update', 'update');
-    Route::delete('/anggota/{id}/delete', 'destroy');
-});
+//Using sanctum
+Route::middleware('auth:sanctum')->group(function () {
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    //Logout Route
+    Route::controller(AuthController::class)->group(function () {
+        Route::get('current-user', 'currentUser');
+        Route::post('logout', 'logout');
+    });
+
+    //Book Routes
+    Route::controller(BookController::class)->group(function () {
+        Route::get('/books', 'index');
+        Route::post('/books/create', 'store');
+        Route::get('/books/{id}', 'show');
+        Route::put('/books/{id}/update', 'update');
+        Route::delete('/books/{id}/delete', 'destroy');
+    });
+    
+
+    //Member Routes
+    Route::controller(MemberController::class)->group(function () {
+        Route::get('/anggota', 'index');
+        Route::post('/anggota/create', 'store');
+        Route::get('/anggota/{id}', 'show');
+        Route::put('/anggota/{id}/update', 'update');
+        Route::delete('/anggota/{id}/delete', 'destroy');
+    });
 });
