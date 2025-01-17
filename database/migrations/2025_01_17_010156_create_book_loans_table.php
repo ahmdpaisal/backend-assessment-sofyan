@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignUuid('member_id')->constrained('members', 'id');
             $table->date('loan_date');
             $table->date('estimated_return');
+            $table->date('return_date')->nullable();
             $table->string('status');
             $table->integer('forfeit')->default(0);
             $table->foreignId('created_by')->nullable()->constrained('users', 'id');

@@ -16,12 +16,14 @@ class MemberFactory extends Factory
      */
     public function definition(): array
     {
+        $users = \App\Models\User::all()->pluck('id')->toArray(); //get users id
+
         return [
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
             'phone_number' => fake()->phoneNumber(),
             'address' => fake()->address(),
-            'created_by' => fake()->numberBetween(1, 10)
+            'created_by' => fake()->randomElement($users),
         ];
     }
 }
