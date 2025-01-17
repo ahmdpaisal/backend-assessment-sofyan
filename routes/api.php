@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookLoanController;
 use App\Http\Controllers\MemberController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,7 +39,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/books/{id}/delete', 'destroy');
     });
     
-
     //Member Routes
     Route::controller(MemberController::class)->group(function () {
         Route::get('/anggota', 'index');
@@ -46,5 +46,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/anggota/{id}', 'show');
         Route::put('/anggota/{id}/update', 'update');
         Route::delete('/anggota/{id}/delete', 'destroy');
+    });
+
+    //Book Loan Routes
+    Route::controller(BookLoanController::class)->group(function () {
+        Route::get('/book-loans', 'index');
+        Route::post('/book-loans/create', 'store');
+        Route::get('/book-loans/{id}', 'show');
+        Route::put('/book-loans/{id}/return', 'returnBook');
+        Route::delete('/book-loans/{id}/delete', 'destroy');
     });
 });
