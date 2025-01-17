@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('publisher');
             $table->date('publish_date');
-            $table->integer('stock');
+            $table->integer('stock')->default(0);
             $table->timestamps();
             $table->softDeletesTz();
         });
